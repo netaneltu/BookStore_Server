@@ -5,6 +5,7 @@ let objects_name = "products";
 let Model = require(`../models/${object_name}`);
 const Order = require("../models/Order");
 
+
 module.exports = {
   // customer functions
 
@@ -279,10 +280,11 @@ module.exports = {
 
   deleteById: async (req, res) => {
     try {
+      
       const id = req.params.id;
 
+      
       await Model.findByIdAndDelete(id).exec();
-
       return res.status(200).json({
         success: true,
         message: `success to delete ${controler_name} by id`,
@@ -294,4 +296,7 @@ module.exports = {
       });
     }
   },
+
+ 
+  
 };

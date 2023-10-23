@@ -19,7 +19,16 @@ const category_schema = new Schema({
             
        
     }
-    ]
+    ],
+    top_products:[
+        
+        {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "products",
+         
+    
+ }
+ ]
 })
 category_schema.set("strictPopulate", false);
 

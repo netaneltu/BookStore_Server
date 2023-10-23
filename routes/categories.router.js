@@ -24,7 +24,8 @@ const {
 
 const {
 
-    getAllCategoriesForCustomers
+    getAllCategoriesForCustomers,
+    topProducts
 
 } = require ('../controllers/categories.controller');
 
@@ -52,7 +53,9 @@ router.put('/managers/update-subcategory/:id',updateSubCategoryByIdForManagers)
 // customers requests
 
 
-router.get('/customers/all',getAllCategoriesForCustomers);
+router.get('/customers/all/',getAllCategoriesForCustomers);
+router.get("/customers/products/top/:id",topProducts);
+
 
 
 // __________________

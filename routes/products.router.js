@@ -16,7 +16,7 @@ const {
 // customers functions
 const {
   getAllProductsForCustomers,
-  getProductByIdForCustomers
+  getProductByIdForCustomers,
 } = require("../controllers/products.controller");
 
 // managers requests
@@ -44,6 +44,7 @@ router.delete(
 
 router.get("/customers/all",getAllProductsForCustomers);
 router.get("/customers/product/:product_id",getProductByIdForCustomers);
+
 
 // _________________
 

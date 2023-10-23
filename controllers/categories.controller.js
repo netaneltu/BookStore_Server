@@ -210,8 +210,11 @@ module.exports = {
   // customers functions
   getAllCategoriesForCustomers: async (req, res) => {
     try {
-      const categories = await Category.find().exec();
-
+      
+     
+      const  categories = await Category.find().populate("top_products subcategories").exec();
+   
+    
       return res.status(200).json({
         success: true,
         message: `success to find all categories - for customer`,
@@ -220,6 +223,28 @@ module.exports = {
     } catch (error) {
       return res.status(500).json({
         message: `error in get all categories - for -customer`,
+        error: error.message,
+      });
+    }
+  },
+  topProducts: async (req, res) => {
+    try {
+      
+      const id = req.params.id;
+
+      const category= await Category.findById(id).populate("top_products").exec();
+      const topProducts=category.top_products
+
+     
+
+      return res.status(200).json({
+        success: true,
+        message: `success to get top products `,
+        topProducts
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: `error to get top products `,
         error: error.message,
       });
     }
