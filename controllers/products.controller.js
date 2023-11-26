@@ -5,7 +5,6 @@ let objects_name = "products";
 let Model = require(`../models/${object_name}`);
 const Order = require("../models/Order");
 
-
 module.exports = {
   // customer functions
 
@@ -80,6 +79,7 @@ module.exports = {
         return {
           id: c.id,
           name: c.name,
+          parent: JSON.parse(c.parent).name,
         };
       });
 
@@ -256,6 +256,27 @@ module.exports = {
       });
     }
   },
+  getByName: async (req, res) => {
+    try {
+     console.log(req.query.searchInput)
+      const searchInput = req.query.searchInput
+      const models = await Model.find({
+        product_name: {$regex: new RegExp(searchInput) },
+      }).select("_id").exec();
+      console.log(models);
+
+      return res.status(200).json({
+        success: true,
+        message: `success to find ${controler_name} by id`,
+        [objects_name]: models,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: `error in find ${controler_name} by id}`,
+        error: error.message,
+      });
+    }
+  },
 
   updateById: async (req, res) => {
     try {
@@ -280,10 +301,8 @@ module.exports = {
 
   deleteById: async (req, res) => {
     try {
-      
       const id = req.params.id;
 
-      
       await Model.findByIdAndDelete(id).exec();
       return res.status(200).json({
         success: true,
@@ -296,7 +315,4 @@ module.exports = {
       });
     }
   },
-
- 
-  
 };

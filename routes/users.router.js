@@ -26,6 +26,7 @@ const {
   logout,
   registerCustomer,
   updateCustomer,
+  getById
 } = require("../controllers/users.controller");
 
 // admins request
@@ -48,5 +49,6 @@ router.get("/customers/auth", authCustomer);
 // router.get("/customers/refresh", refreshtoken);
 router.post("/customers/register", registerCustomer);
 router.put("/customers/update_by_id/:id", updateCustomer);
+router.get("/customers/get_by_id/:id", getById);
 
 module.exports = router;

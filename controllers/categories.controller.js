@@ -23,6 +23,24 @@ module.exports = {
       });
     }
   },
+  getAllTileCategoriesForManagers: async (req, res) => {
+    try {
+      const categories = await Category.find().exec();
+
+      
+      
+      return res.status(200).json({
+        success: true,
+        message: `success to find all categories - for managers`,
+        categories,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: `error in get all categories - for -managers`,
+        error: error.message,
+      });
+    }
+  },
   getAllSubCategoriesForManagers: async (req, res) => {
     try {
       const subcategories = await SubCategory.find().exec();

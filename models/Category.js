@@ -11,6 +11,10 @@ const category_schema = new Schema({
         type:String,
         required:true
     },
+    category_image: {
+        type:String,
+        required:false
+    },
     subcategories:[
         
            {

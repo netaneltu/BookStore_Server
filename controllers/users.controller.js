@@ -16,7 +16,7 @@ module.exports = {
         cart,
         user_orders,
       } = req.body;
-
+      console.log(req.body);
       // creating new model using the values from req.body
       const new_model = new Model({
         first_name,
@@ -36,6 +36,10 @@ module.exports = {
 
       // actual saving
       await new_model.save();
+
+      if (Model.some({ email })) {
+        throw new Error("מייל זה כבר רשום במערכת");
+      }
 
       // return success message
       return res.status(200).json({
@@ -69,12 +73,12 @@ module.exports = {
 
   getById: async (req, res) => {
     try {
-      const models = await Model.findById(req.params.id);
+      const models = await Model.findById(req.params.id,{password:0});
 
       return res.status(200).json({
         success: true,
         message: `success to find user by id`,
-        [objects_name]: models,
+        user: models,
       });
     } catch (error) {
       return res.status(500).json({
@@ -195,11 +199,11 @@ module.exports = {
 
   logout: async (req, res) => {
     try {
-      console.log("error");
-      const cookies = req.cookies;
-      if (!cookies?.jwt) return res.status(204);
+      //  console.log(req);
+      //   const cookies = req.cookies;
+      // if (!cookies?.jwt) return res.status(204);
 
-      res.clearCookie("jwt", { httpOnly: true });
+      res.clearCookie("token", { httpOnly: true });
       return res.status(200).json({
         success: true,
         message: `logout success`,
@@ -231,6 +235,7 @@ module.exports = {
         user: {
           _id: user._id,
           name: user.first_name,
+          last_name: user.last_name,
           email: user.email,
         },
       });
