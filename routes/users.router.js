@@ -26,8 +26,10 @@ const {
   logout,
   registerCustomer,
   updateCustomer,
-  getById
+  getById,
 } = require("../controllers/users.controller");
+
+const { newsletterRegister } = require("../controllers/newsletter.controller");
 
 // admins request
 router.post("/admins/add-manager", addManagerForAdmins);
@@ -45,6 +47,7 @@ router.put("/update-user-for-managers/:user_id", updateUserByIdForManager);
 // customers requests
 router.post("/customers/login", login);
 router.post("/customers/logout", logout);
+router.post("/customers/newsletter", newsletterRegister);
 router.get("/customers/auth", authCustomer);
 // router.get("/customers/refresh", refreshtoken);
 router.post("/customers/register", registerCustomer);

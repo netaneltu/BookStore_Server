@@ -53,6 +53,36 @@ module.exports = {
       });
     }
   },
+  newsletter: async (req, res) => {
+    try {
+      // gettind values from the body request
+      const { name, email } = req.body;
+      console.log(req.body);
+      // creating new model using the values from req.body
+      const new_model = new Model({
+        name,
+        email,
+      });
+
+      // actual saving
+      await new_model.save();
+
+      if (Model.some({ email })) {
+        throw new Error("מייל זה כבר רשום במערכת");
+      }
+
+      // return success message
+      return res.status(200).json({
+        success: true,
+        message: `success to add new user`,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: `error in add user`,
+        error: error.message,
+      });
+    }
+  },
 
   getAll: async (req, res) => {
     try {
@@ -73,7 +103,7 @@ module.exports = {
 
   getById: async (req, res) => {
     try {
-      const models = await Model.findById(req.params.id,{password:0});
+      const models = await Model.findById(req.params.id, { password: 0 });
 
       return res.status(200).json({
         success: true,

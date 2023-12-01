@@ -9,7 +9,8 @@ module.exports = {
 
     add: async (req,res) => {
 
-        try {
+        try {   
+            const cart=req.cart
 
             // gettind values from the body request
             const {
